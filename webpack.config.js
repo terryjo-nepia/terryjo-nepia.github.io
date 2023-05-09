@@ -4,8 +4,8 @@ const path = require('path');
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, "./static"),
-    filename: "index_bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
   },
   module: {
     rules: [
@@ -26,14 +26,14 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "./src/index.html"),
-      filename: path.resolve(__dirname, "./static/index.html"),
+      template: path.resolve(__dirname, "src/index.html"),
+      filename: "index.html",
     }),
   ],
   devServer: {
     static: [
       { directory: path.join(__dirname, 'public'), watch: true },
-      { directory: path.join(__dirname, 'static'), watch: true },
+      { directory: path.join(__dirname, 'dist'), watch: true },
     ],
   }
 };
