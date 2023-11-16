@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Terri-Lee Quiz</title>
+   <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #quiz-container {
+            background-color: white;
+            color: black; /* Ensure text inside the quiz container is black */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .choice-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            color: black; /* Ensure choice button text is black */
+        }
+
+        .choice-button:hover {
+            background-color: #e9e9e9;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Terri-Lee Kohere-Blyth Quiz</h1>
+        <div id="question"></div>
+        <div id="choices"></div>
+        <div id="result"></div>
+        <button id="next-button">Next Question</button>
+        <div id="final-score" style="display:none;"></div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+           const questions = [
+    { question: "Who loves to read the most?", choices: ["Terri-Lee", "Michael", "Sara", "David"] },
+    { question: "Who is the best at swimming?", choices: ["Emily", "Terri-Lee", "Ryan", "Sophia"] },
+    { question: "Who knows the most about space?", choices: ["Terri-Lee", "Liam", "Olivia", "Mason"] },
+    { question: "Who has the best taste in music?", choices: ["Jacob", "Isabella", "Terri-Lee", "Ethan"] },
+    { question: "Who is the most adventurous?", choices: ["Terri-Lee", "Daniel", "Grace", "Ava"] },
+    { question: "Who is always up for a challenge?", choices: ["Samuel", "Terri-Lee", "Chloe", "Matthew"] },
+    { question: "Who has the funniest jokes?", choices: ["Terri-Lee", "James", "Emma", "Lucas"] },
+    { question: "Who is the best at video games?", choices: ["Oliver", "Terri-Lee", "Mia", "Aiden"] },
+    { question: "Who is always ready to help others?", choices: ["Terri-Lee", "Charlotte", "Noah", "Harper"] },
+    { question: "Who is the best at drawing?", choices: ["Alex", "Terri-Lee", "John", "Emma"] }
+];
+
+
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            const questionElement = document.getElementById('question');
+            const choicesElement = document.getElementById('choices');
+            const resultElement = document.getElementById('result');
+            const nextButton = document.getElementById('next-button');
+            const finalScoreElement = document.getElementById('final-score');
+
+            function displayQuestion() {
+                if (currentQuestionIndex < questions.length) {
+                    const currentQuestion = questions[currentQuestionIndex];
+                    questionElement.textContent = currentQuestion.question;
+                    choicesElement.innerHTML = '';
+                    resultElement.textContent = ''; // Clear the result message
+
+                    currentQuestion.choices.forEach(choice => {
+                        const button = document.createElement('button');
+                        button.textContent = choice;
+                        button.classList.add('choice-button');
+                        button.onclick = () => {
+                            const resultText = choice === "Terri-Lee" ? "Correct!" : "Wrong, try again!";
+                            resultElement.textContent = resultText;
+                            if (choice === "Terri-Lee") {
+                                score++;
+                            }
+                        };
+                        choicesElement.appendChild(button);
+                    });
+                } else {
+                    finalScoreElement.textContent = "Your final score is: " + score + " out of " + questions.length;
+                    finalScoreElement.style.display = 'block';
+                    nextButton.style.display = 'none';
+                }
+            }
+
+            nextButton.onclick = () => {
+                currentQuestionIndex++;
+                displayQuestion();
+            };
+
+            displayQuestion();
+        });
+    </script>
+</body>
+</html>
